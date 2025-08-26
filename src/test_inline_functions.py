@@ -1,7 +1,7 @@
 import unittest
 from htmlnode import HTMLNode, LeafNode, ParentNode
 from textnode import *
-from helper_functions import *
+from inline_functions import *
 
 class TestTextNodeToHTMLNode(unittest.TestCase):
     def test_text(self):
