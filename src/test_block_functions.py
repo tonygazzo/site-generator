@@ -48,3 +48,24 @@ This is the same paragraph on a new line
                 "- This is a list\n- with items",
             ],
         )
+
+class TestBlockToBlockType(unittest.TestCase):
+    def test_heading(self):
+        block_type = block_to_block_type("### Heading")
+        self.assertEqual(block_type, BlockType.HEADING)
+        block_type = block_to_block_type("######## Heading")
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+    def test_code(self):
+        block_type = block_to_block_type("```some code```")
+        self.assertEqual(block_type, BlockType.CODE)
+    def test_ul(self):
+        block_type = block_to_block_type("- item 1\n- item2\n- item3")
+        self.assertEqual(block_type, BlockType.UNORDERED_LIST)
+        block_type = block_to_block_type("- item 1\nitem2\n- item3")
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+    def test_ol(self):
+        block_type = block_to_block_type("1. item 1\n2. item2\n3. item3")
+        self.assertEqual(block_type, BlockType.ORDERED_LIST)
+        block_type = block_to_block_type("1. item 1\n3. item2\n4. item3")
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+
